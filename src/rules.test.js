@@ -1,27 +1,63 @@
 import { beforeEach, describe, expect, it } from '@jest/globals';
 
-import { getRulesByName } from './rules';
+import {
+    getArabicOnBlurRules,
+    getArabicOnPasteRules,
+    getArabicOnSanitizeRules,
+    getArabicRules,
+    getEnglishOnBlurRules,
+    getEnglishOnPasteRules,
+    getEnglishRules,
+    getRulesByName,
+} from './rules';
 
 describe('rules', () => {
-    describe('getCompiledArabicRules', () => {
+    describe('getArabicRules', () => {
         it('should filter arabic ones', () => {
-            const rules = [
-                { id: 1, arabic: 1, english: 1, flags: 'g', pattern: '\\d' },
-                { id: 2, english: 1, flags: 'g', pattern: '\\d+' },
-                { id: 3, arabic: 1, flags: 'g', pattern: '\\d*' },
-            ];
+            expect(getArabicRules().rules.every((e) => e.arabic && e.regex && !e.pattern && !e.flags)).toBe(true);
+        });
+    });
 
-            const result = getCompiledArabicRules(rules);
-            expect(result).toEqual([
-                { arabic: 1, english: 1, id: 1, regex: expect.any(RegExp) },
-                { arabic: 1, id: 3, regex: expect.any(RegExp) },
-            ]);
+    describe('getEnglishRules', () => {
+        it('should filter English ones', () => {
+            expect(getEnglishRules().rules.every((e) => e.english && e.regex && !e.pattern && !e.flags)).toBe(true);
+        });
+    });
 
-            expect(result[0].regex.flags).toEqual('g');
-            expect(result[0].regex.source).toEqual('\\d');
+    describe('getArabicOnBlurRules', () => {
+        it('should retrieve all rules Arabic and that have onBlur', () => {
+            expect(getArabicOnBlurRules().rules.every((e) => e.arabic && e.onBlur)).toBe(true);
+        });
+    });
 
-            expect(result[1].regex.flags).toEqual('g');
-            expect(result[1].regex.source).toEqual('\\d*');
+    describe('getArabicOnPasteRules', () => {
+        it('should retrieve all rules Arabic and that have onPaste', () => {
+            expect(getArabicOnPasteRules().rules.every((e) => e.arabic && e.onPaste)).toBe(true);
+        });
+    });
+
+    describe('getArabicOnSanitizeRules', () => {
+        it('should retrieve all rules Arabic and that have onSanitize', () => {
+            expect(getArabicOnSanitizeRules().rules.every((e) => e.arabic && e.onSanitize)).toBe(true);
+        });
+    });
+
+    describe('getEnglishOnBlurRules', () => {
+        it('should retrieve all rules English and that have onBlur', () => {
+            expect(getEnglishOnBlurRules().rules.every((e) => e.english && e.onBlur)).toBe(true);
+        });
+    });
+
+    describe('getEnglishOnPasteRules', () => {
+        it('should retrieve all rules English and that have onBlur', () => {
+            expect(getEnglishOnPasteRules().rules.every((e) => e.english && e.onPaste)).toBe(true);
+        });
+    });
+
+    describe('getRulesByName', () => {
+        it('should retrieve all rules specified', () => {
+            const Rules = getRulesByName('foo', 'applySmartQuotes', 'condenseMultilines');
+            expect(Rules.rules).toHaveLength(2);
         });
     });
 

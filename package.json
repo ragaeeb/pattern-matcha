@@ -22,8 +22,8 @@
   },
   "scripts": {
     "watch": "parcel watch",
-    "build": "parcel build  && node scripts/build.js src dist",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "build": "node scripts/build.js src dist && parcel build",
+    "test": "node scripts/build.js src dist && node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [
     "search",

@@ -25,7 +25,25 @@ interface Rule {
  * Represents a collection of rules that can be applied to format text.
  */
 declare class Rules {
+        /**
+     * The raw compiled rules loaded from JSON.
+     * @param {*} compiledRules The raw rules with the patterns compiled into RegExp objects.
+     */
     constructor(compiledRules: Rule[]);
+
+    /**
+     * Adds the rules from the given Rules object to this one.
+     * @param {*} newRules Another Rules object.
+     * @returns This rules object with the other rules appended.
+     */
+    add(newRules: Rules): Rules;
+
+    /**
+     * Returns a copy of this rules object after applying the given filter function on its current set of rules
+     * @param {*} f The function to filter out the rules we want to keep.
+     * @returns A copy of this rules object while only keeping the rules that were allowed by the filter.
+     */
+    filter(f): Rules;
 
     /**
      * Formats a given text string by applying the compiled rules.

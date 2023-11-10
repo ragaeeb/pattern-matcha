@@ -1,4 +1,4 @@
-import rulesData from './regexRules.json';
+import rulesData from '../dist/rules.json';
 
 const rules = rulesData.map(({ flags, pattern, ...rule }) => ({
     regex: new RegExp(pattern, flags),
@@ -6,41 +6,20 @@ const rules = rulesData.map(({ flags, pattern, ...rule }) => ({
 }));
 
 class Rules {
-    /**
-     * The raw compiled rules loaded from JSON.
-     * @param {*} compiledRules The raw rules with the patterns compiled into RegExp objects.
-     */
     constructor(compiledRules) {
         this.rules = compiledRules;
     }
 
-    /**
-     * Adds the rules from the given Rules object to this one.
-     * @param {*} newRules Another Rules object.
-     * @returns This rules object with the other rules appended.
-     */
     add(newRules) {
         this.rules.push(...newRules.rules);
         return this;
     }
 
-    /**
-     * Returns a copy of this rules object after applying the given filter function on its current set of rules
-     * @param {*} f The function to filter out the rules we want to keep.
-     * @returns A copy of this rules object while only keeping the rules that were allowed by the filter.
-     */
     filter(f) {
         this.rules = this.rules.filter(f);
         return this;
     }
 
-    /**
-     * Formats a given text string by applying the compiled rules.
-     * Each rule is a regex pattern that is searched in the text, and if found, replaced with its respective substitution.
-     * @param text The text to be formatted.
-     * @param options Optional parameter for logging during the format operation.
-     * @returns The formatted text.
-     */
     format(text, { logger } = {}) {
         let modifiedText = text;
 
