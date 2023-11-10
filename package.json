@@ -5,7 +5,7 @@
   "main": "dist/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ragaeeb/pattern-matcha.git"
+    "url": "git+https://github.com/ragaeeb/pattern-matcha.git"
   },
   "files": [
     "dist/main.js",
