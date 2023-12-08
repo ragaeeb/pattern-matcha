@@ -1,11 +1,14 @@
 import rulesData from '../dist/rules.json';
 
-const rules = rulesData.map(({ flags, pattern, ...rule }) => ({
-    regex: new RegExp(pattern, flags),
-    ...rule,
-}));
+export const compile = (rawRules) =>
+    rawRules.map(({ flags, pattern, ...rule }) => ({
+        regex: new RegExp(pattern, flags),
+        ...rule,
+    }));
 
-class Rules {
+const rules = compile(rulesData);
+
+export class Rules {
     constructor(compiledRules) {
         this.rules = compiledRules;
     }
@@ -40,7 +43,7 @@ class Rules {
     }
 }
 
-const getFilteredRules = (filter) => {
+export const getFilteredRules = (filter) => {
     const filtered = rules.filter(filter);
     return new Rules(filtered);
 };

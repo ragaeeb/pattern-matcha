@@ -88,10 +88,26 @@ describe('rules', () => {
             it('should replace all the al-s', () => {
                 expect(
                     rules.format(
-                        'Al-Rahman bar-Rahman becomes al-Rahman, and ar-Rahman becomes al-Rahman, and As-Sukkari and as-Sukkari both become al-Sukkari, and adh-Dhahabi and Adh-Dhahabi both turn to al-Dhahabi',
+                        'Al-Rahman bar-Rahman becomes al-Rahman, and ar-Rahman becomes al-Rahman, and As-Sukkari and as-Sukkari both become al-Sukkari, and adh-Dhahabi and Adh-Dhahabi both turn to Al Dhahabi with Sufyan Ath Thawri',
                     ),
                 ).toEqual(
-                    'al-Rahman bar-Rahman becomes al-Rahman, and al-Rahman becomes al-Rahman, and al-Sukkari and al-Sukkari both become al-Sukkari, and al-Dhahabi and al-Dhahabi both turn to al-Dhahabi',
+                    'al-Rahman bar-Rahman becomes al-Rahman, and al-Rahman becomes al-Rahman, and al-Sukkari and al-Sukkari both become al-Sukkari, and al-Dhahabi and al-Dhahabi both turn to al-Dhahabi with Sufyan al-Thawri',
+                );
+            });
+
+            it('should replace the az variations', () => {
+                expect(rules.format('Az-Zuhri and Az Zuhri should both get formatted baz Baz B-Az')).toEqual(
+                    'al-Zuhri and al-Zuhri should both get formatted baz Baz B-Az',
+                );
+            });
+
+            it('should replace the ash variations', () => {
+                expect(
+                    rules.format(
+                        'Ash-hadu an la ilaha should be intact but ash-Shafiee or Ash-Shafiee and Ash-Shaykh should be changed',
+                    ),
+                ).toEqual(
+                    'Ash-hadu an la ilaha should be intact but al-Shafiee or al-Shafiee and al-Shaykh should be changed',
                 );
             });
         });

@@ -124,17 +124,29 @@
     {
         "id": 11,
         "name": "al-prefix",
-        "pattern": "(\\b|\\W)(Al-|Ar-|As-|Adh-|adh-|as-|ar-)",
+        "pattern": "(\\b|\\W)(Al |Al-|Ar-|As-|Adh-|Ath |Ath-|Az |Az-|az-|adh-|as-|ar-)",
         "replacement": "$1al-",
         "flags": "g",
         "description": "should replace all the al-s in strings like Al-Rahman bar-Rahman becomes al-Rahman to al-Rahman bar-Rahman becomes al-Rahman",
         "english": 1,
         "onBlur": 1,
         "timestamp": "2023-09-25 19:08:51",
-        "last_updated": "2023-10-03 05:40:19"
+        "last_updated": "2023-12-09 12:41:19"
     },
     {
         "id": 12,
+        "name": "al-prefix",
+        "pattern": "(\\b|\\W)(Ash-S|ash-S)",
+        "replacement": "$1al-S",
+        "flags": "g",
+        "description": "should replace all the ash in strings like ash-Shafiee but not when the 2nd word does not start with a S",
+        "english": 1,
+        "onBlur": 1,
+        "timestamp": "2023-12-09 01:03:19",
+        "last_updated": "2023-12-09 01:03:19"
+    },
+    {
+        "id": 14,
         "name": "al-trim",
         "pattern": "al- (.+?)\\b",
         "replacement": "al-$1",
@@ -146,7 +158,7 @@
         "last_updated": "2023-10-03 05:59:19"
     },
     {
-        "id": 13,
+        "id": 16,
         "name": "cleanExtremeArabicUnderscores",
         "pattern": "(?<!\\d ?ه)ـ(?=\\r?$)|^ـ",
         "replacement": "",
@@ -158,7 +170,7 @@
         "last_updated": "2023-09-27 16:06:57"
     },
     {
-        "id": 14,
+        "id": 18,
         "pattern": "‛|’|‘",
         "replacement": "'",
         "flags": "g",
@@ -169,7 +181,7 @@
         "last_updated": "2023-09-27 06:05:13"
     },
     {
-        "id": 15,
+        "id": 20,
         "pattern": "\\s+,",
         "replacement": ",",
         "flags": "g",
@@ -180,7 +192,7 @@
         "last_updated": "2023-09-27 06:05:13"
     },
     {
-        "id": 16,
+        "id": 22,
         "name": "removeSpaceInsideQuotedText",
         "pattern": "([“”\"]|«) *(.*?) *([“”\"]|»)",
         "replacement": "$1$2$3",
@@ -193,7 +205,7 @@
         "last_updated": "2023-09-27 21:46:04"
     },
     {
-        "id": 17,
+        "id": 24,
         "pattern": "([\\[\\(])\\s*(.*?)\\s*([\\]\\)])",
         "replacement": "$1$2$3",
         "flags": "g",
@@ -206,7 +218,7 @@
         "last_updated": "2023-09-27 06:05:13"
     },
     {
-        "id": 18,
+        "id": 26,
         "pattern": "\\?|؟\\.",
         "replacement": "؟",
         "flags": "g",
@@ -217,7 +229,7 @@
         "last_updated": "2023-09-27 06:05:13"
     },
     {
-        "id": 19,
+        "id": 28,
         "pattern": "(;|؛)\\s*(\\1\\s*)*",
         "replacement": "؛",
         "flags": "g",
@@ -228,7 +240,7 @@
         "last_updated": "2023-09-27 06:05:13"
     },
     {
-        "id": 20,
+        "id": 30,
         "name": "englishToArabicComma",
         "pattern": ",|-،",
         "replacement": "،",
