@@ -101,6 +101,10 @@ describe('rules', () => {
                 );
             });
 
+            it('should replace the Ats and Ad variations', () => {
+                expect(rules.format('Ad-Ḏuhlī and Sufyān Ats-Thawrī')).toEqual('al-Ḏuhlī and Sufyān al-Thawrī');
+            });
+
             it('should replace the ash variations', () => {
                 expect(
                     rules.format(
@@ -221,6 +225,22 @@ describe('rules', () => {
                 expect(rules.format('Then the Messenger (sallahu alayhi wasallam) said')).toEqual(
                     'Then the Messenger ﷺ said',
                 );
+            });
+
+            it('Messenger (peace*)', () => {
+                expect(rules.format('Then the Messenger (peace and blessings be upon him) said')).toEqual(
+                    'Then the Messenger ﷺ said',
+                );
+            });
+
+            it('Messenger (May peace*)', () => {
+                expect(rules.format(`Allah's Messenger (May peace and blessings be upon him) said`)).toEqual(
+                    `Allah's Messenger ﷺ said`,
+                );
+            });
+
+            it('Messenger (Prophet peace*)', () => {
+                expect(rules.format(`Prophet (May peace and blessings be upon him) said`)).toEqual(`Prophet ﷺ said`);
             });
 
             it('Prophet (*)', () => {
