@@ -27,6 +27,10 @@ At the moment there are three phases for formatting:
 3. [Performance Considerations](#performance-considerations)
 4. [License](#license)
 
+## Demo
+
+See it in action [here](https://ragaeeb.github.io/pattern-matcha).
+
 ## Installation
 
 To install Pattern Matcha, use npm:

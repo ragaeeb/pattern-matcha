@@ -75,7 +75,7 @@
     },
     {
         "id": 7,
-        "pattern": "\\(peace be upon him\\)|(Messenger of (Allah|Allāh)|Messenger|Prophet|Mu[hḥ]ammad) *\\(s[^)]*m\\)*",
+        "pattern": "\\(peace be upon him\\)|(Messenger of (Allah|Allāh)|Messenger|Prophet|Mu[hḥ]ammad) *\\((s[^)]*m|peace[^)]*him|May[^)]*him|may[^)]*him)\\)*",
         "replacement": "$1 ﷺ",
         "flags": "gi",
         "description": "Anything with \"peace Muhammad s....m\" replaces with the salutation",
@@ -83,7 +83,7 @@
         "onBlur": 1,
         "name": "fixSalutations",
         "timestamp": "2023-09-25 19:08:51",
-        "last_updated": "2023-09-27 06:05:13"
+        "last_updated": "2023-12-20 10:06:13"
     },
     {
         "id": 8,
@@ -124,14 +124,14 @@
     {
         "id": 11,
         "name": "al-prefix",
-        "pattern": "(\\b|\\W)(Al |Al-|Ar-|As-|Adh-|Ath |Ath-|Az |Az-|az-|adh-|as-|ar-)",
+        "pattern": "(\\b|\\W)(Al |Al-|Ar-|As-|Adh-|Ad-|Ats-|Ath |Ath-|Az |Az-|az-|adh-|as-|ar-)",
         "replacement": "$1al-",
         "flags": "g",
         "description": "should replace all the al-s in strings like Al-Rahman bar-Rahman becomes al-Rahman to al-Rahman bar-Rahman becomes al-Rahman",
         "english": 1,
         "onBlur": 1,
         "timestamp": "2023-09-25 19:08:51",
-        "last_updated": "2023-12-09 12:41:19"
+        "last_updated": "2023-12-20 10:09:19"
     },
     {
         "id": 12,
