@@ -21,10 +21,20 @@ interface Rule {
     english?: boolean;
 }
 
+interface CompiledRule {
+    regex: RegExp;
+    id: number;
+    name: string;
+    replacement: string;
+    arabic: boolean;
+    english?: boolean;
+    onPaste: number;
+}
+
 /**
  * Represents a collection of rules that can be applied to format text.
  */
-declare class Rules {
+export declare class Rules {
         /**
      * The raw compiled rules loaded from JSON.
      * @param {*} compiledRules The raw rules with the patterns compiled into RegExp objects.
@@ -66,6 +76,13 @@ export function getArabicRules(): Rules;
  * @returns Rules object tailored for English text.
  */
 export function getEnglishRules(): Rules;
+
+/**
+ * Gets the rules based on the filter function specified.
+ * @param filter A filter function to only return a subset of rules. Pass Boolean to get all the rules back.
+ * @returns Returns the rules based on the filter.
+ */
+export function getFilteredRules(filter: (rule: CompiledRule) => boolean): Rules;
 
 /**
  * Retrieves rules for Arabic text formatting, specifically for scenarios where text is pasted or loses focus.

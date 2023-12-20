@@ -43,6 +43,11 @@ export class Rules {
     }
 }
 
+/**
+ * Gets the rules based on the filter function specified.
+ * @param {*} filter A filter function to only return a subset of rules. Pass Boolean to get all the rules back.
+ * @returns Returns the rules based on the filter.
+ */
 export const getFilteredRules = (filter) => {
     const filtered = rules.filter(filter);
     return new Rules(filtered);

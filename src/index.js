@@ -8,7 +8,9 @@ import {
     getEnglishOnBlurRules,
     getEnglishOnPasteRules,
     getEnglishRules,
+    getFilteredRules,
     getRulesByName,
+    Rules,
 } from './rules';
 
 export {
@@ -21,5 +23,7 @@ export {
     getEnglishOnBlurRules,
     getEnglishOnPasteRules,
     getEnglishRules,
+    getFilteredRules,
     getRulesByName,
+    Rules,
 };
