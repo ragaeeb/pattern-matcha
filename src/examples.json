@@ -1,0 +1,286 @@
+[
+  {
+    "id": -2,
+    "name": "Remove Zero-Width Characters",
+    "example": "السلامـعَلَيْكُمْ​وَرَحْمَةُ اللهِ‌ وَبَرَكَاتُهُ"
+  },
+  {
+    "id": -1,
+    "name": "Replace Smart Quotes with Regular Quotes",
+    "example": "He said, “Where are you going?”"
+  },
+  {
+    "id": 1,
+    "name": "Apply Smart Quotes to Quoted Text",
+    "example": "She asked, \"What time is it?\""
+  },
+  {
+    "id": 2,
+    "name": "Replace Closing Quote at Start with Opening Quote",
+    "example": "”Where are my keys?"
+  },
+  {
+    "id": 3,
+    "name": "Remove Spaces Before Punctuation",
+    "example": "I was going to the store . Then I realized I forgot my wallet ."
+  },
+  {
+    "id": 4,
+    "name": "Remove Spaces in Numeric Ranges",
+    "example": "Parts 1 / 2 , Pages 127 / 11"
+  },
+  {
+    "id": 7,
+    "name": "Standardize Religious Honorifics",
+    "example": "The Prophet (peace be upon him) said: اتقوا فراسة المؤمن"
+  },
+  {
+    "id": 8,
+    "name": "Fix incorrectly formatted religious honorifics",
+    "example": "The Prophet , ﷺ , said..."
+  },
+
+  {
+    "id": 9,
+    "name": "Replace Double Letter Ayn with Single",
+    "example": "ʿʿAbdurrahman"
+  },
+  {
+    "id": 10,
+    "name": "Replace Double Letter Hamza with Single",
+    "example": "رُوِيَ عَنِ الإِمَامِ مَالِكٍ بْنِ أَنَسٍ قَوْلٌ غَرِيبٌٌ"
+  },
+  {
+    "id": 11,
+    "name": "Standardize al- Prefix Formatting",
+    "example": "We went to Al-Madinah, Ar-Riyadh, and As-Sham"
+  },
+  {
+    "id": 12,
+    "name": "Standardize al- Prefix Starting with As or Ash",
+    "example": "Ash-Shafi'i, ash-Sha'bi"
+  },
+  {
+    "id": 14,
+    "name": "Remove Space Before Trailing al-",
+    "example": "He is known as al- Buḫārī"
+  },
+  {
+    "id": 16,
+    "name": "Remove Unnecessary Word Division Markers",
+    "example": "هـــــذا مَـــتْـــنٌ مُــقَـــدَّمــــــةٌـــ"
+  },
+  {
+    "id": 18,
+    "name": "Standardize Apostrophe Formatting",
+    "example": "That’s what she’d say if she’s right"
+  },
+  {
+    "id": 20,
+    "name": "Remove Spaces Before Commas",
+    "example": "I went to the store , and bought some milk , then went home ."
+  },
+  {
+    "id": 22,
+    "name": "Remove Spaces Inside Quoted Text",
+    "example": "He said , “ There is no god but Allah ” . "
+  },
+  {
+    "id": 24,
+    "name": "Remove Spaces Inside Brackets",
+    "example": " ( rule number one ) "
+  },
+
+  {
+    "id": 26,
+    "name": "Standardize Question Mark Formatting",
+    "example": "مَنْ هُوَ?"
+  },
+  {
+    "id": 28,
+    "name": "Standardize Semicolon Formatting",
+    "example": "مَنْ هُوَ;"
+  },
+  {
+    "id": 30,
+    "name": "Replace English Comma with Arabic",
+    "example": ",مَنْ هُوَ"
+  },
+  {
+    "id": 40,
+    "name": "Add Space After Punctuation",
+    "example": "I went to the store.Then I realized I forgot my wallet.After that I went back."
+  },
+  {
+    "id": 41,
+    "name": "Standardize Spacing Around Punctuation",
+    "example": "I went to the store .    Then I realized I forgot my wallet .After that I went back ."
+  },
+  {
+    "id": 43,
+    "name": "Add Space Before Punctuation",
+    "example": "I went to the store.  Then I forgot my wallet.After that I went back."
+  },
+  {
+    "id": 45,
+    "name": "Separate Arabic Text and Numbers",
+    "example": "وردفيالحديث37",
+
+    "arabic": true
+  },
+  {
+    "id": 50,
+    "name": "Fix Trailing Word Connectors",
+    "example": "السلام عليكم و رحمة الله وبركاته الطرخون او ورق و"
+  },
+  {
+    "id": 55,
+    "name": "Standardize Colon Formatting",
+    "example": "The first opinion says this :: the second differs ."
+  },
+  {
+    "id": 60,
+    "name": "Add Space After Colon",
+    "example": "The first:the second."
+  },
+  {
+    "id": 61,
+    "name": "Add Space After Arabic Text Colon",
+    "example": "قال:فقلت"
+  },
+  {
+    "id": 70,
+    "name": "Remove URLs",
+    "example": "You can check www.google.com for more details."
+  },
+  {
+    "id": 75,
+    "name": "Standardize Line Breaks",
+    "example": "First line\rSecond line\nThird line"
+  },
+  {
+    "id": 80,
+    "name": "Remove English Letters and Symbols",
+    "example": "الْكِتَاب A Book"
+  },
+  {
+    "id": 90,
+    "name": "Condense Consecutive Word Division Markers",
+    "example": "الْــــكِــــتَــــابُ الْـــعَـــظِـــيـــمُ"
+  },
+  {
+    "id": 91,
+    "name": "Condense Consecutive Underscores",
+    "example": "example_____text"
+  },
+  {
+    "id": 95,
+
+    "name": "Condense Consecutive Dashes",
+    "example": "example---text"
+  },
+  {
+    "id": 101,
+    "name": "Condense Consecutive Asterisks",
+    "example": "This is an **example*** string"
+  },
+  {
+    "id": 105,
+    "name": "Replace Double Brackets with Single",
+    "example": "((Example)) text [[with brackets]]"
+  },
+  {
+    "id": 111,
+    "name": "Condense Consecutive Periods",
+    "example": "This is an example..with periods..."
+  },
+  {
+    "id": 121,
+
+    "name": "Remove Trailing Page Numbers",
+    "example": "See reference -[23]- for more details"
+  },
+  {
+    "id": 131,
+    "name": "Condense Ellipses",
+    "example": "This is an example.........text"
+  },
+  {
+    "id": 171,
+    "name": "Limit Consecutive Line Breaks",
+    "example": "First line\n\n\nSecond line"
+  },
+  {
+    "id": 172,
+    "name": "Condense Consecutive Line Breaks",
+    "example": "First line\n\n\nSecond line"
+  },
+  {
+    "id": 181,
+    "name": "Condense Whitespace",
+    "example": "       Example    text     "
+  },
+  {
+    "id": 191,
+    "name": "Remove Enclosed Lone Arabic Letters",
+    "example": "كَتَبَ [سَ] صَحِيفَةً"
+  },
+  {
+    "id": 221,
+    "name": "Simplify Alif Letters",
+    "example": "ٱلْأَإِيَّةُ"
+  },
+  {
+    "id": 222,
+
+    "name": "Replace Alif Maqsurah",
+    "example": "رُءِيَ"
+  },
+  {
+    "id": 223,
+    "name": "Remove Ta Marbutah",
+    "example": "مَدْرَسَةٌ"
+  },
+  {
+    "id": 224,
+    "name": "Remove Arabic Diacritics",
+    "example": "مُحَمَّدٌ"
+  },
+  {
+    "id": 243,
+    "name": "Remove Non-Index Digits Between Arabic Text",
+    "example": "- 7 - الحَدِيثِ"
+  },
+  {
+    "id": 244,
+
+    "name": "Remove Arabic Number Sequences",
+    "example": "بَاب بَيان 695 6 الْإِيمَان"
+  },
+  {
+    "id": 245,
+    "name": "Remove All Digits and Dashes",
+    "example": "Page 5-7, Rule 243"
+  },
+  {
+    "id": 251,
+
+    "name": "Remove Lone Arabic Letters",
+    "example": "ك ت ب و ا ث ر"
+  },
+  {
+    "id": 301,
+    "name": "Remove Symbols and Numeric References",
+    "example": "{Part (3/5)} [15] «Example» Text / markup \\ file . path ..."
+  },
+  {
+    "id": 438,
+    "name": "Trim Whitespace From Lines",
+    "example": "       First line\n      Second line    \n"
+  },
+  {
+    "id": 439,
+    "name": "Condense Whitespace",
+    "example": "This   is    a text       with spaces"
+  }
+]

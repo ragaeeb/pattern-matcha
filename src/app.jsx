@@ -1,43 +1,65 @@
 import { h } from "preact";
-import { useState } from "preact/hooks";
-import { getArabicSanitizingRules } from "pattern-matcha";
-import "./app.css"; // This line should be at the top of your file
+import { useEffect, useMemo, useRef, useState } from "preact/hooks";
+import { getFilteredRules, Rules } from "pattern-matcha";
+import "./app.css";
 import packageInfo from "../package.json";
+import examples from "./examples.json";
 
 export function App() {
-  const [text, setText] = useState(
-    `حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ، قَالَ قَرَأْتُ عَلَى مَالِكٍ عَنِ ابْنِ شِهَابٍ، أَنَّ عُمَرَ بْنَ عَبْدِ الْعَزِيزِ، أَخَّرَ الصَّلاَةَ يَوْمًا، فَدَخَلَ عَلَيْهِ عُرْوَةُ بْنُ الزُّبَيْرِ، فَأَخْبَرَهُ أَنَّ الْمُغِيرَةَ بْنَ شُعْبَةَ أَخَّرَ الصَّلاَةَ يَوْمًا وَهْوَ بِالْعِرَاقِ، فَدَخَلَ عَلَيْهِ أَبُو مَسْعُودٍ الأَنْصَارِيُّ فَقَالَ مَا هَذَا يَا مُغِيرَةُ أَلَيْسَ قَدْ عَلِمْتَ أَنَّ جِبْرِيلَ نَزَلَ فَصَلَّى، فَصَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم ثُمَّ صَلَّى فَصَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم ثُمَّ صَلَّى فَصَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم ثُمَّ صَلَّى فَصَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم ثُمَّ صَلَّى فَصَلَّى رَسُولُ اللَّهِ صلى الله عليه وسلم ثُمَّ قَالَ ‏ "‏ بِهَذَا أُمِرْتُ ‏"‏‏.‏ فَقَالَ عُمَرُ لِعُرْوَةَ اعْلَمْ مَا تُحَدِّثُ أَوَإِنَّ جِبْرِيلَ هُوَ أَقَامَ لِرَسُولِ اللَّهِ صلى الله عليه وسلم وَقْتَ الصَّلاَةِ‏.‏ قَالَ عُرْوَةُ كَذَلِكَ كَانَ بَشِيرُ بْنُ أَبِي مَسْعُودٍ يُحَدِّثُ عَنْ أَبِيهِ‏.‏ قَالَ عُرْوَةُ وَلَقَدْ حَدَّثَتْنِي عَائِشَةُ، أَنَّ رَسُولَ اللَّهِ صلى الله عليه وسلم كَانَ يُصَلِّي الْعَصْرَ، وَالشَّمْسُ فِي حُجْرَتِهَا قَبْلَ أَنْ تَظْهَرَ‏.‏
-    `
-  );
+  const textRef = useRef();
+  const [rule, setRule] = useState();
 
-  const handleRulesChange = (event) => {
-    setRules(event.target.value);
-  };
+  useEffect(() => {
+    document.title = packageInfo.name;
+  }, []);
 
-  const handleTextChange = (event) => {
-    setText(event.target.value);
-  };
-
-  const handleProcessText = () => {
-    try {
-      const formatted = getArabicSanitizingRules().format(text);
-      setText(formatted);
-    } catch (error) {
-      alert("Error parsing rules or processing text: " + error.message);
+  useEffect(() => {
+    if (rule) {
+      textRef.current.value = rule.example;
     }
-  };
+  }, [rule]);
+
+  const idToRule = useMemo(() => {
+    return getFilteredRules(Boolean).rules.reduce((acc, r) => {
+      return { ...acc, [r.id]: r };
+    }, {});
+  }, []);
 
   return (
     <div>
-      <h1>Pattern Matcha v{packageInfo.dependencies["pattern-matcha"]} Demo</h1>
+      <h1>
+        {packageInfo.name} by {packageInfo.author} v
+        {packageInfo.dependencies["pattern-matcha"]} Demo
+      </h1>
       <div>
         <textarea
-          value={text}
+          ref={textRef}
+          onFocus={(e) => {
+            if (rule) {
+              e.target.value = new Rules([idToRule[rule.id]]).format(
+                e.target.value
+              );
+            }
+          }}
           style={{ minWidth: "100%" }}
-          onChange={handleTextChange}
           placeholder="Enter text to format"
         />
-        <button onClick={handleProcessText}>Process Text</button>
+        Total rules: {Object.keys(idToRule).length}
+        <ul>
+          {examples.map((r) => {
+            return (
+              <li key={r.id}>
+                <button
+                  onClick={() => {
+                    setRule(r);
+                  }}
+                >
+                  [{r.id}] {r.id === rule?.id ? r.name.toUpperCase() : r.name}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
