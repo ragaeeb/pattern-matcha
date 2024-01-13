@@ -64,9 +64,31 @@ describe('rules', () => {
     describe('format', () => {
         let rules;
 
+        describe('removeZeroWidthJoiners', () => {
+            beforeEach(() => {
+                rules = getRulesByName('removeZeroWidthJoiners');
+            });
+
+            it('should remove the zero width joiners', () => {
+                expect(rules.format('السلامـعَلَيْكُمْ​وَرَحْمَةُ اللهِ‌ وَبَرَكَاتُهُ')).toEqual(
+                    'السلامـعَلَيْكُمْ وَرَحْمَةُ اللهِ  وَبَرَكَاتُهُ',
+                );
+            });
+        });
+
+        describe('foolSmartQuotes', () => {
+            beforeEach(() => {
+                rules = getRulesByName('foolSmartQuotes');
+            });
+
+            it('should replace the curly quotes with regular ones', () => {
+                expect(rules.format('The “quoted” text”')).toEqual('The "quoted" text"');
+            });
+        });
+
         describe('applySmartQuotes', () => {
             beforeEach(() => {
-                rules = getRulesByName('applySmartQuotes', 'applySmartQuotes2');
+                rules = getRulesByName('applySmartQuotes');
             });
 
             it('quotes', () => {
@@ -80,43 +102,7 @@ describe('rules', () => {
             });
         });
 
-        describe('al- replacements', () => {
-            beforeEach(() => {
-                rules = getRulesByName('al-prefix');
-            });
-
-            it('should replace all the al-s', () => {
-                expect(
-                    rules.format(
-                        'Al-Rahman bar-Rahman becomes al-Rahman, and ar-Rahman becomes al-Rahman, and As-Sukkari and as-Sukkari both become al-Sukkari, and adh-Dhahabi and Adh-Dhahabi both turn to Al Dhahabi with Sufyan Ath Thawri',
-                    ),
-                ).toEqual(
-                    'al-Rahman bar-Rahman becomes al-Rahman, and al-Rahman becomes al-Rahman, and al-Sukkari and al-Sukkari both become al-Sukkari, and al-Dhahabi and al-Dhahabi both turn to al-Dhahabi with Sufyan al-Thawri',
-                );
-            });
-
-            it('should replace the az variations', () => {
-                expect(rules.format('Az-Zuhri and Az Zuhri should both get formatted baz Baz B-Az')).toEqual(
-                    'al-Zuhri and al-Zuhri should both get formatted baz Baz B-Az',
-                );
-            });
-
-            it('should replace the Ats and Ad variations', () => {
-                expect(rules.format('Ad-Ḏuhlī and Sufyān Ats-Thawrī')).toEqual('al-Ḏuhlī and Sufyān al-Thawrī');
-            });
-
-            it('should replace the ash variations', () => {
-                expect(
-                    rules.format(
-                        'Ash-hadu an la ilaha should be intact but ash-Shafiee or Ash-Shafiee and Ash-Shaykh should be changed',
-                    ),
-                ).toEqual(
-                    'Ash-hadu an la ilaha should be intact but al-Shafiee or al-Shafiee and al-Shaykh should be changed',
-                );
-            });
-        });
-
-        describe('reduceSpacesBeforePunctuation', () => {
+        describe('cleanSpacesBeforePeriod', () => {
             beforeEach(() => {
                 rules = getRulesByName('cleanSpacesBeforePeriod');
             });
@@ -158,61 +144,21 @@ describe('rules', () => {
             });
         });
 
-        describe('reduceSpaceBetween part pages', () => {
-            it('clean spaces between reference', () => {
+        describe('reduceSpaceBetweenReference', () => {
+            beforeEach(() => {
                 rules = getRulesByName('reduceSpaceBetweenReference');
+            });
 
+            it('clean spaces between reference', () => {
                 expect(rules.format('this is 127 / 11 with 127 /2 and 122 /3 and 22/1')).toEqual(
                     'this is 127/11 with 127/2 and 122/3 and 22/1',
                 );
             });
         });
 
-        describe('reduceSpaces', () => {
-            beforeEach(() => {
-                rules = getRulesByName('reduceSpaces');
-            });
-
-            it('removes the spaces', () => {
-                expect(rules.format('This has    many spaces\n\nNext line')).toEqual(
-                    'This has many spaces\n\nNext line',
-                );
-            });
-
-            it('no-op', () => {
-                expect(rules.format('this is')).toEqual('this is');
-            });
-        });
-
-        describe('cleanMultilineSpaces', () => {
-            beforeEach(() => {
-                rules = getRulesByName('cleanMultilines');
-            });
-
-            it('removes the spaces', () => {
-                expect(rules.format('This has    \nmany spaces  \n\nNext line')).toEqual(
-                    'This has\nmany spaces\n\nNext line',
-                );
-            });
-
-            it('no-op', () => {
-                expect(rules.format('this is')).toEqual('this is');
-            });
-        });
-
-        describe('condenseMultilines', () => {
-            beforeEach(() => {
-                rules = getRulesByName('condenseMultilines2');
-            });
-
-            it('should remove the multiple line breaks', () => {
-                expect(rules.format('This\n\nis\n\n\nsome\nlines')).toEqual('This\nis\nsome\nlines');
-            });
-        });
-
         describe('fixSalutations', () => {
             beforeEach(() => {
-                rules = getRulesByName('fixSalutations', 'fixSalutations2');
+                rules = getRulesByName('fixSalutations');
             });
 
             it('Messenger of Allah (*)', () => {
@@ -267,6 +213,170 @@ describe('rules', () => {
                 expect(rules.format('Then Muḥammad (sallahu alayhi wasalla) said')).toEqual(
                     'Then Muḥammad (sallahu alayhi wasalla) said',
                 );
+            });
+        });
+
+        describe('fixSalutationsBetweenCommas', () => {
+            beforeEach(() => {
+                rules = getRulesByName('fixSalutationsBetweenCommas');
+            });
+
+            it('should replace the salutations between commas', () => {
+                expect(rules.format('The Prophet, ﷺ, said')).toEqual('The Prophet ﷺ said');
+            });
+        });
+
+        describe('doubleAyn2Single', () => {
+            beforeEach(() => {
+                rules = getRulesByName('doubleAyn2Single');
+            });
+
+            it('should replace the two ayns with a single one', () => {
+                expect(rules.format('ʿʿAbd al-Rahman')).toEqual('ʿAbd al-Rahman');
+            });
+        });
+
+        describe('doubleHamza2Single', () => {
+            beforeEach(() => {
+                rules = getRulesByName('doubleHamza2Single');
+            });
+
+            it('should replace the two hamzas with a single one', () => {
+                expect(rules.format('ʿulamāʾʾ')).toEqual('ʿulamāʾ');
+            });
+        });
+
+        describe('al- replacements', () => {
+            beforeEach(() => {
+                rules = getRulesByName('al-prefix');
+            });
+
+            it('should replace all the al-s', () => {
+                expect(
+                    rules.format(
+                        'Al-Rahman bar-Rahman becomes al-Rahman, and ar-Rahman becomes al-Rahman, and As-Sukkari and as-Sukkari both become al-Sukkari, and adh-Dhahabi and Adh-Dhahabi both turn to Al Dhahabi with Sufyan Ath Thawri',
+                    ),
+                ).toEqual(
+                    'al-Rahman bar-Rahman becomes al-Rahman, and al-Rahman becomes al-Rahman, and al-Sukkari and al-Sukkari both become al-Sukkari, and al-Dhahabi and al-Dhahabi both turn to al-Dhahabi with Sufyan al-Thawri',
+                );
+            });
+
+            it('should replace the az variations', () => {
+                expect(rules.format('Az-Zuhri and Az Zuhri should both get formatted baz Baz B-Az')).toEqual(
+                    'al-Zuhri and al-Zuhri should both get formatted baz Baz B-Az',
+                );
+            });
+
+            it('should replace the Ats and Ad variations', () => {
+                expect(rules.format('Ad-Ḏuhlī and Sufyān Ats-Thawrī')).toEqual('al-Ḏuhlī and Sufyān al-Thawrī');
+            });
+
+            it('should replace the ash variations', () => {
+                expect(
+                    rules.format(
+                        'Ash-hadu an la ilaha should be intact but ash-Shafiee or Ash-Shafiee and Ash-Shaykh should be changed',
+                    ),
+                ).toEqual(
+                    'Ash-hadu an la ilaha should be intact but al-Shafiee or al-Shafiee and al-Shaykh should be changed',
+                );
+            });
+        });
+
+        describe('al-trim', () => {
+            beforeEach(() => {
+                rules = getRulesByName('al-trim');
+            });
+
+            it('should replace the space between al-', () => {
+                expect(
+                    rules.format('Al-Rahman bar-Rahman ar-Rahman al- Rahman al- ḥadīth bal- Rahman al- Jabbār'),
+                ).toEqual('Al-Rahman bar-Rahman ar-Rahman al-Rahman al-ḥadīth bal- Rahman al-Jabbār');
+            });
+        });
+
+        describe('cleanExtremeArabicUnderscores', () => {
+            beforeEach(() => {
+                rules = getRulesByName('cleanExtremeArabicUnderscores');
+            });
+
+            it('should replace the ending marker of an Arabic line', () => {
+                expect(rules.format('some textـ')).toEqual('some text');
+            });
+
+            it('should replace the beginning and ending marker of an Arabic line', () => {
+                expect(rules.format('ـThis is a textـ')).toEqual('This is a text');
+            });
+
+            it('should not interfere with hijri dates', () => {
+                expect(rules.format('ـAnother example with 1422هـ')).toEqual('Another example with 1422هـ');
+            });
+
+            it('should handle the multiple line text', () => {
+                expect(rules.format('A multiline stringـ\nـwith several linesـ\n1423هـ')).toEqual(
+                    'A multiline string\nwith several lines\n1423هـ',
+                );
+            });
+
+            it('should handle this multiline example', () => {
+                expect(
+                    rules.format(
+                        'This is a normal line\nـAnd this one starts with the characterـ\nAnd 1424هـ remains unchanged',
+                    ),
+                ).toEqual(
+                    'This is a normal line\nAnd this one starts with the character\nAnd 1424هـ remains unchanged',
+                );
+            });
+        });
+
+        describe('normalizeApostrophes', () => {
+            beforeEach(() => {
+                rules = getRulesByName('normalizeApostrophes');
+            });
+
+            it('should normalize all the apostrophe variations', () => {
+                expect(rules.format('‛Abul ’Abbas ‘Isa')).toEqual("'Abul 'Abbas 'Isa");
+            });
+        });
+
+        describe('reduceSpaces', () => {
+            beforeEach(() => {
+                rules = getRulesByName('reduceSpaces');
+            });
+
+            it('removes the spaces', () => {
+                expect(rules.format('This has    many spaces\n\nNext line')).toEqual(
+                    'This has many spaces\n\nNext line',
+                );
+            });
+
+            it('no-op', () => {
+                expect(rules.format('this is')).toEqual('this is');
+            });
+        });
+
+        describe('cleanMultilineSpaces', () => {
+            beforeEach(() => {
+                rules = getRulesByName('cleanMultilines');
+            });
+
+            it('removes the spaces', () => {
+                expect(rules.format('This has    \nmany spaces  \n\nNext line')).toEqual(
+                    'This has\nmany spaces\n\nNext line',
+                );
+            });
+
+            it('no-op', () => {
+                expect(rules.format('this is')).toEqual('this is');
+            });
+        });
+
+        describe('condenseMultilines', () => {
+            beforeEach(() => {
+                rules = getRulesByName('condenseMultilines2');
+            });
+
+            it('should remove the multiple line breaks', () => {
+                expect(rules.format('This\n\nis\n\n\nsome\nlines')).toEqual('This\nis\nsome\nlines');
             });
         });
 
