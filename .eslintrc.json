@@ -4,7 +4,7 @@
         "es2022": true,
         "jest": true
     },
-    "extends": ["prettier", "airbnb-base", "eslint-config-prettier"],
+    "extends": ["prettier", "eslint:recommended", "eslint-config-prettier"],
     "plugins": ["prettier", "simple-import-sort"],
     "globals": {
         "Atomics": "readonly",

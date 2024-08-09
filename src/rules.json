@@ -160,7 +160,7 @@
     {
         "id": 16,
         "name": "cleanExtremeArabicUnderscores",
-        "pattern": "(?<!\\d ?ه)ـ(?=\\r?$)|^ـ",
+        "pattern": "(?<!\\d ?ه|اه)ـ(?=\\r?$)|^ـ(?!اهـ)",
         "replacement": "",
         "flags": "gm",
         "description": "Gets rid of the ـ character at the end of Arabic strings\nIf the text is \"some textـ\", it will be replaced to \"some text\".\n\nInput:  \"ـThis is a textـ\"\nOutput: \"This is a text\"\n\nInput:  \"ـAnother example with 1422هـ\"\nOutput: \"Another example with 1422هـ\"\n\nInput:  \"ـA multiline stringـ\\nـwith several linesـ\\n1423هـ\"\nOutput: \"A multiline string\\nwith several lines\\n1423هـ\"\n\nInput:  \"This is a normal line\\nـAnd this one starts with the characterـ\\nAnd 1424هـ remains unchanged\"\nOutput: \"This is a normal line\\nAnd this one starts with the character\\nAnd 1424هـ remains unchanged\"\n\nInput:  \"ـJustـ anotherـ exampleـ\\n1425هـ is a Hijri yearـ\"\nOutput: \"Just another example\\n1425هـ is a Hijri year\"",

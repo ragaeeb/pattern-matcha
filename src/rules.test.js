@@ -572,5 +572,37 @@ describe('rules', () => {
                 expect(rules.format('[النور: 36]')).toBe('[النور: 36]');
             });
         });
+
+        describe('cleanExtremeArabicUnderscores', () => {
+            beforeEach(() => {
+                rules = getRulesByName('cleanExtremeArabicUnderscores');
+            });
+
+            it('should not affect hijri dates', () => {
+                expect(rules.format('اهـ')).toBe('اهـ');
+            });
+
+            it('should get rid of the ending character', () => {
+                expect(rules.format('ـThis is a textـ')).toBe('This is a text');
+            });
+
+            it('should not affect the Hijri year', () => {
+                expect(rules.format('ـAnother example with 1422هـ')).toBe('Another example with 1422هـ');
+            });
+
+            it('should process the multiline text', () => {
+                expect(rules.format('ـA multiline stringـ\nـwith several linesـ\n1423هـ')).toBe(
+                    'A multiline string\nwith several lines\n1423هـ',
+                );
+            });
+
+            it('should not affect years that are in the middle of the sentence', () => {
+                expect(
+                    rules.format(
+                        'This is a normal line\nـAnd this one starts with the characterـ\nAnd 1424هـ remains unchanged',
+                    ),
+                ).toBe('This is a normal line\nAnd this one starts with the character\nAnd 1424هـ remains unchanged');
+            });
+        });
     });
 });
