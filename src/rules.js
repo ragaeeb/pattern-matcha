@@ -97,12 +97,6 @@ export const getArabicFormattingRules = () => getArabicOnPasteRules().add(getAra
 export const getArabicSanitizingRules = () => getArabicFormattingRules().add(getArabicOnSanitizeRules());
 
 /**
- * Returns a Rules object with rules applicable for English text formatting.
- * @returns Rules object tailored for English text.
- */
-export const getEnglishRules = () => getFilteredRules((r) => r.english);
-
-/**
  * Retrieves rules for English text formatting on onBlur events.
  * @returns Rules object containing onBlur rules for English text.
  */
@@ -113,3 +107,9 @@ export const getEnglishOnBlurRules = () => getEnglishRules().filter((r) => r.onB
  * @returns Rules object containing onPaste rules for English text.
  */
 export const getEnglishOnPasteRules = () => getEnglishRules().filter((r) => r.onPaste);
+
+/**
+ * Returns a Rules object with rules applicable for English text formatting.
+ * @returns Rules object tailored for English text.
+ */
+export const getEnglishRules = () => getFilteredRules((r) => r.english);
