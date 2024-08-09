@@ -604,5 +604,17 @@ describe('rules', () => {
                 ).toBe('This is a normal line\nAnd this one starts with the character\nAnd 1424هـ remains unchanged');
             });
         });
+
+        describe('removeZeroWidthJoiners', () => {
+            beforeEach(() => {
+                rules = getRulesByName('removeZeroWidthJoiners');
+            });
+
+            it('should remove the empty space', () => {
+                const text = 'يَخْلُوَ ‏. ‏ قَالَ غَرِيبٌ ‏. ‏';
+                const expected = 'يَخْلُوَ  .   قَالَ غَرِيبٌ  .  ';
+                expect(rules.format(text)).toBe(expected);
+            });
+        });
     });
 });
