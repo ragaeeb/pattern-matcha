@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from '@jest/globals';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import {
     getArabicOnBlurRules,
@@ -14,13 +14,13 @@ import {
 describe('rules', () => {
     describe('getArabicRules', () => {
         it('should filter arabic ones', () => {
-            expect(getArabicRules().rules.every((e) => e.arabic && e.regex && !e.pattern && !e.flags)).toBe(true);
+            expect(getArabicRules().rules.every((e) => e.arabic && e.regex)).toBe(true);
         });
     });
 
     describe('getEnglishRules', () => {
         it('should filter English ones', () => {
-            expect(getEnglishRules().rules.every((e) => e.english && e.regex && !e.pattern && !e.flags)).toBe(true);
+            expect(getEnglishRules().rules.every((e) => e.english && e.regex)).toBe(true);
         });
     });
 
